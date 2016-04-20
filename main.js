@@ -1,4 +1,5 @@
-// stripped down to only import App from ./App
-// since we are doing rendering directly from App.js
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('app'));

@@ -1,35 +1,35 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
+// unlike props which are meant to be passed in component as static values or methods
+// state is a collection of values that is meant to be managed by component itself
 
 // class component -- can have state
 class App extends React.Component {
+  // initialize state
+  constructor() {
+    // super gives a context for "this" within our component
+    super();
+    this.state = {
+      txt: 'this is the state txt',
+      cat: 0
+    }
+  }
+  // to manage state
+  update(e) {
+    //setState methods sets new state
+    this.setState({ txt: e.target.value });
+  }
   // in class component we will always have render method
   render() {
-    // accessing the props value
-    let txt = this.props.txt;
+    // input: triggering update on state
+    // h1: accessing the state value
     return (
       <div>
-        <h1>{ txt }</h1>
-        <p>This is required number: { this.props.cat }</p>
+        <input type="text" onChange={ this.update.bind(this) } />
+        <h1>{ this.state.txt }</h1>
       </div>
     )
   }
 }
 
-// we can also define property types, that we are expecting
-App.propTypes = {
-  txt: React.PropTypes.string, // expecting this to be string
-  cat: React.PropTypes.number.isRequired // expecting this to be manadatory integer
-}
-
-// define default properties
-App.defaultProps = {
-  txt: 'this is the default txt' // prop value defined in ReactDOM.render will override this
-}
-
-ReactDOM.render(
-  // setting the props value
-  // note: similar to setting attributes in html
-  <App txt="this is the props value" cat={5} />,
-  document.getElementById('app')
-);
+export default App

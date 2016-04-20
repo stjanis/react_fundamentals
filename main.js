@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+// stripped down to only import App from ./App
+// since we are doing rendering directly from App.js
 
-ReactDOM.render(<App />, document.getElementById('app'));
+import App from './App';

@@ -1,29 +1,35 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 // class component -- can have state
 class App extends React.Component {
-  // in extension in react component we can do all sorts of things
-  // but in class component we will always have render method
+  // in class component we will always have render method
   render() {
-    // render method is expected to return other elements or components
-    // render method is allowed to return only single node
-    // needs to be wrapped in parent container
+    // accessing the props value
+    let txt = this.props.txt;
     return (
       <div>
-        <h1>Hello world!</h1>
-        <h3>Some subheading</h3>
+        <h1>{ txt }</h1>
+        <p>This is required number: { this.props.cat }</p>
       </div>
     )
-
-    // NOT WORKINg
-    // return (
-    //   <h1>Hello</h1>
-    //   <b>something</b>
-    // )
   }
 }
 
-// stateless function Component -- will not have state
-// const App = () => <h1>Hello stateless</h1>
+// we can also define property types, that we are expecting
+App.propTypes = {
+  txt: React.PropTypes.string, // expecting this to be string
+  cat: React.PropTypes.number.isRequired // expecting this to be manadatory integer
+}
 
-export default App;
+// define default properties
+App.defaultProps = {
+  txt: 'this is the default txt' // prop value defined in ReactDOM.render will override this
+}
+
+ReactDOM.render(
+  // setting the props value
+  // note: similar to setting attributes in html
+  <App txt="this is the props value" cat={5} />,
+  document.getElementById('app')
+);

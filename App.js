@@ -2,10 +2,24 @@ import React from 'react';
 
 // class component -- can have state
 class App extends React.Component {
+  // in extension in react component we can do all sorts of things
+  // but in class component we will always have render method
   render() {
+    // render method is expected to return other elements or components
+    // render method is allowed to return only single node
+    // needs to be wrapped in parent container
     return (
-      <h1>Hello world!</h1>
+      <div>
+        <h1>Hello world!</h1>
+        <h3>Some subheading</h3>
+      </div>
     )
+
+    // NOT WORKINg
+    // return (
+    //   <h1>Hello</h1>
+    //   <b>something</b>
+    // )
   }
 }
 

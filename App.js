@@ -11,17 +11,20 @@ class App extends React.Component {
     this.setState({ val: this.state.val +1 })
   }
   componentWillMount() {
-    console.log('mounting');
+    // we don't access to the DOM yet
+    // but we have access to state and props
+    this.setState({ m: 2 })
   }
   render() {
     console.log('rendering');
-    return <button onClick={ this.update }>{ this.state.val }</button>
+    return <button onClick={ this.update }>{ this.state.val * this.state.m }</button>
   }
   componentDidMount() {
-    console.log('mounted');
+    //console.log(ReactDOM.findDOMNode(this));
+    this.inc = setInterval(this.update, 500)
   }
   componentWillUnmount() {
-    console.log('bye!');
+    clearInterval(this.inc);
   }
 }
 
@@ -38,8 +41,8 @@ class Wrapper extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={ this.mount.bind(this) }>Mount</button>
-        <button onClick={ this.unmount.bind(this) }>Unmount</button>
+        <div onClick={ this.mount.bind(this) }>Mount</div>
+        <div onClick={ this.unmount.bind(this) }>Unmount</div>
         <div id="a"></div>
       </div>
     )

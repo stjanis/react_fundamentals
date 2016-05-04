@@ -1,78 +1,55 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-// refs
-// refs are a way to reference an instance of a component from within react application
-
-// class component -- can have state
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      red: 128
-    }
-    this.update = this.update.bind(this)
+    this.state = {data: [
+      {id:1, name: "Jon Snow"},
+      {id:2, name: "Tyrion Lannister"},
+      {id:3, name: "Cersei Lannister"},
+      {id:4, name: "Sansa Stark"},
+      {id:5, name: "Arya Stark"},
+      {id:6, name: "Jorah Mormont"},
+      {id:7, name: "Jamie Lannister"},
+      {id:8, name: "Samwell Tarly"},
+      {id:9, name: "Theon Greyjoy"},
+      {id:10, name: "Lord Varys"},
+      {id:11, name: "Petyr \"Littlefinger\" Baelish"},
+      {id:12, name: "Brienne of Tarth"},
+      {id:13, name: "Bronn"},
+      {id:14, name: "Bran Stark"},
+      {id:15, name: "Podrick Payne"},
+      {id:16, name: "Davos Seaworth"},
+      {id:17, name: "Missandei"},
+      {id:18, name: "Daenerys Targaryen"},
+      {id:19, name: "Melisandre"},
+    ]}
   }
-  update(e) {
-    this.setState({
-      red: ReactDOM.findDOMNode(this.refs.red.refs.inp).value
+  render() {
+    let rows = this.state.data.map( person => {
+      // unique key is required amongst siblings
+      return (
+        <PersonRow
+          key={person.id}
+          data={person}
+        />
+      )
     });
-  }
-  // in class component we will always have render method
-  render() {
     return (
-      <div>
-        <NumInput
-          ref="red"
-          min={ 0 }
-          max={ 255 }
-          step={ 1 }
-          val={ +this.state.red } // + - converting to number
-          label="Red"
-          //type="number"
-          update={ this.update } />
-      </div>
+      <table>
+        <tbody>{rows}</tbody>
+      </table>
     )
   }
 }
 
-// !! refs will not work with stateless components
-class NumInput extends React.Component {
-  render() {
-    let label = this.props.label !== '' ?
-      <label>{ this.props.label } - { this.props.val }</label> : ''
-    return (
-      <div>
-        <input ref="inp"
-          type={this.props.type}
-          min={this.props.min}
-          max={this.props.max}
-          step={this.props.step}
-          defaultValue={this.props.val}
-          onChange={ this.props.update } />
-        { label }
-      </div>
-    )
-  }
-}
-
-NumInput.propTypes = {
-  min: React.PropTypes.number,
-  max: React.PropTypes.number,
-  step: React.PropTypes.number,
-  val: React.PropTypes.number,
-  label: React.PropTypes.string,
-  update: React.PropTypes.func.isRequired,
-  type: React.PropTypes.oneOf(['number', 'range'])
-}
-
-NumInput.defaultProps = {
-  min: 0,
-  max: 0,
-  step: 1,
-  val: 0,
-  label: '',
-  type: 'range'
+const PersonRow = (props) => {
+  return (
+    <tr>
+      <td>{props.data.id}</td>
+      <td>{props.data.name}</td>
+    </tr>
+  )
 }
 
 export default App
